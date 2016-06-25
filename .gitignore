@@ -3,3 +3,5 @@ dist/
 !.gitkeep
 venv/
 lib/
+conf/
+*.autogen.*
