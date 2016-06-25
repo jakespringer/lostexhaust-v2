@@ -1,0 +1,5 @@
+bin/
+dist/
+!.gitkeep
+venv/
+lib/
