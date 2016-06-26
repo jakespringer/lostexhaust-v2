@@ -13,7 +13,7 @@ For example, to grab the information about a specific user, you may send a GET r
 https://myschool.lostexhaust.org/api/123456789101/user/getinfo/USER1234
 ```
 This will return JSON that enumerates the attributes of a user with the id 'USER1234'. It might look like the following:
-```
+```json
 {
   "firstname" : "John",
   "lastname" : "Doe",
@@ -54,7 +54,7 @@ To receive a list of possible carpools near an address, send a GET request to th
 https://[hostname]/api/[api-key]/carpool/findnear/[origin-household-id]?splice_start=[index-to-start]&splice_end=[index-to-end]<&units=[units-for-measurement]>
 ```
 The `[index-to-start]` and the `[index-to-end]` parameters refer to the section of elements in a distance-ordered list of households that should be returned. The distance is measured from `[origin-household-id]` to the household element in units provided with `units`. Valid values for `units` include: `mi` (miles) and `km` (kilometers); the default is `mi`. Every element with an index in the closed set [splice_start, splice_end-1] will be returned. Note: indices are 0-based. For example, if `splice_start=0` and `splice_end=10`, the response will contain information about the 10 nearest households, starting at index 0 (nearest) and ending at index 9 (tenth-nearest). If every parameter is valid and the server encounters no errors, this request will respond with a `200 OK` HTTP response and JSON with the following information:
-```
+```json
 {
   "carpools" : [
     {
@@ -67,7 +67,7 @@ The `[index-to-start]` and the `[index-to-end]` parameters refer to the section 
 }
 ```
 If the request fails, the server will respond with either a `400 Bad Request`, a `401 Unauthorized`, a `403 Forbidden`, a `404 Not Found`, or a `500 Internal Server Error`. In the case of any `400` response, the server will respond with JSON that contains the errors:
-```
+```json
 {
   "errors" : [
     {
