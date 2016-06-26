@@ -58,11 +58,10 @@ The `[index-to-start]` and the `[index-to-end]` parameters refer to the section 
 {
   "carpools" : [
     {
-      "index" : [index: int, starting with splice_start],
-      "id" : [household-id: string],
-      "distance" : [distance from origin-household-id]
+      "index" : 0,
+      "id" : "USER-ID",
+      "distance" : 3.24
     },
-    ...
   ]
 }
 ```
@@ -71,11 +70,10 @@ If the request fails, the server will respond with either a `400 Bad Request`, a
 {
   "errors" : [
     {
-      "context" : [context: string|null],
-      "reason" : [reason: string],
-      "exception" : [exception: string|null]
+      "context" : null,
+      "reason" : "Some error message.",
+      "exception" : null
     },
-    ...
   ]
 }
 ```
