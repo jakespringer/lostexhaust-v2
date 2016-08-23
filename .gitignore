@@ -3,4 +3,6 @@ dist/
 !.gitkeep
 venv/
 conf/
-*.autogen.*
+*autogen*
+.env
+.DS_Store

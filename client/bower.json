@@ -1,8 +1,8 @@
 {
-  "name": "angular-seed",
-  "description": "A starter project for AngularJS",
-  "version": "0.0.0",
-  "homepage": "https://github.com/angular/angular-seed",
+  "name": "lostexhaust",
+  "description": "A carpool application, done right",
+  "version": "2.0.1",
+  "homepage": "https://www.lostexhaust.org",
   "license": "MIT",
   "private": true,
   "dependencies": {

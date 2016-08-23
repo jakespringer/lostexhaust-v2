@@ -1,0 +1,15 @@
+{
+  "sqlHostname" : "localhost",
+  "sqlPort" : "3306",
+  "sqlUsername" : "root",
+  "sqlPassword" : "",
+  "sqlLookupTable" : "lostexhaust.users",
+  "sqlUserTable" : "lostexhaust.users",
+  "sqlHouseholdsTable" : "lostexhaust.households",
+  "googleApiKey" : "",
+  "catlinRsaPemFile" : "",
+  "validApiKeys" : [
+    "default_api_key",
+    "secondary_api_key"
+  ]
+}
