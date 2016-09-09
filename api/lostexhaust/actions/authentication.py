@@ -1,27 +1,27 @@
-import re
-import lostexhaust.config
-from Crypto.PublicKey import RSA
-from Crypto.Cipher import PKCS1_OAEP
+import re, os, M2Crypto, base64, util
+import lostexhaust.config as config
 
-pem = ""
-with open(config.get("catlinRsaPemFile"), "r") as pem_file:
-    pem = pem_file.read()
+rsakey = M2Crypto.RSA.load_pub_key(os.path.join(config.get('rootDir'), config.get("catlinRsaPemFile")))
 
 def check_token_validity(token, ip, timestamp):
-    # temporary
-    return True
+    parsed = parse_token(decrypt_rsa(token))
+    if parsed is None:
+        return False
+    else:
+        (parsed_person_id, parsed_timestamp, parsed_ip) = parsed
+        # todo: check if person_id is valid
+        valid_person_id = True
+        valid_ip = parsed_ip == ip or ip == "127.0.0.1"
+        valid_timestamp = (timestamp - int(parsed_timestamp)) < config.get("loginSessionDuration")
+        return valid_person_id and valid_ip and valid_timestamp
 
-    (parsed_person_id, parsed_ip, parsed_timestamp) = parse_token(decrypt_rsa(token, pem))
-    # todo: check if person_id is valid
-    valid_person_id = True
-    valid_ip = parsed_ip == ip
-    valid_timestamp = (timestamp - int(parsed_timestamp)) < config.get("loginSessionDuration")
-    return valid_person_id and valid_ip and valid_timestamp
-
-def decrypt_rsa(encrypted, key):
-    rsakey = RSA.importKey(key)
-    dcipher = PKCS1_v1_5.new(rsakey)
-    return dcipher.decrypt(encrypted)
+def decrypt_rsa(encoded):
+    try:
+        cipher = base64.b16decode(encoded)
+        plain = rsakey.public_decrypt(cipher, M2Crypto.RSA.pkcs1_padding)
+        return plain
+    except:
+        return ""
 
 def parse_token(unencrypted_token):
     tokens = unencrypted_token.split("|")
@@ -31,5 +31,9 @@ def parse_token(unencrypted_token):
         return tuple(tokens)
 
 def get_person_from_token(token):
-    (parsed_person_id, parsed_ip, parsed_timestamp) = parse_token(decrypt_rsa(token, pem))
-    return parsed_person_id
+    parsed = parse_token(decrypt_rsa(token))
+    if parsed is None:
+        return None
+    else:
+        (parsed_person_id, parsed_timestamp, parsed_ip) = parsed
+        return parsed_person_id

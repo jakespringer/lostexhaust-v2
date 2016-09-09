@@ -3,8 +3,8 @@
 angular.module('lostexhaust')
 
 .config(['$routeProvider', function ($routeProvider) {
-  $routeProvider.when('/user', {
-    templateUrl: 'templates/user.html',
-    controller: 'UserController'
+  $routeProvider.when('/home', {
+    templateUrl: 'templates/home.html',
+    controller: 'HomeController'
   });
 }])

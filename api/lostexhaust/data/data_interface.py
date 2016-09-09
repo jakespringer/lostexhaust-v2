@@ -1,4 +1,4 @@
-import mysql.connector
+import mysql.connector, urllib2, json
 import lostexhaust.config as config
 from lostexhaust.models.carpool import Carpool
 from lostexhaust.models.household import Household
@@ -53,6 +53,18 @@ def get_all_households():
     result = [Household(household_id, place_id, latitude, longitude, addressblock + " " + city + " " + state + " " + postcode, None) for (household_id, place_id, latitude, longitude, addressblock, city, state, postcode) in cursor]
     cursor.close()
     return result
+
+def get_people(person_id_array):
+    url = config.get("catlinApiUrl")
+    token = config.get("catlinApiToken")
+    response = urllib2.urlopen(url + "?token=" + token + "&query=person&id=" + ",".join(person_id_array)).read()
+    return json.loads(response)
+
+def get_profile_picture(person_id):
+    url = config.get("catlinPictureUrl")
+    token = config.get("catlinPictureToken")
+    response = urllib2.urlopen(url + "?token=" + token + "&id=" + person_id)
+    return response
 
 # def get_household_hidden(household_id):
 #     pass

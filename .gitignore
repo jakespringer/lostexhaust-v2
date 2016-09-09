@@ -6,3 +6,5 @@ conf/
 *autogen*
 .env
 .DS_Store
+public.der
+public.pem

@@ -1,4 +1,4 @@
-import math
+import math, M2Crypto, base64
 from lostexhaust.models.carpool import Carpool
 from lostexhaust.models.household import Household
 
@@ -16,3 +16,14 @@ def geo_distance(latitude, longitude, other_latitude, other_longitude):
 
 def get_sorted_carpools(origin, other_households):
     return sorted([Carpool(origin.household_id, o.household_id, geo_distance(origin.latitude, origin.longitude, o.latitude, o.longitude)).__dict__ for o in other_households], key=lambda e: e["distance"])
+
+def m2crypto_load_der(filename):
+    TEMPLATE = """
+-----BEGIN RSA PUBLIC KEY-----
+%s
+-----END RSA PUBLIC KEY-----
+"""
+    raw = open(filename, 'rb').read()
+    data = TEMPLATE % base64.encodestring(raw).rstrip()
+    key = M2Crypto.RSA.load_key_string(data)
+    return key
