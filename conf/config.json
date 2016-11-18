@@ -7,9 +7,14 @@
   "sqlUserTable" : "lostexhaust.users",
   "sqlHouseholdsTable" : "lostexhaust.households",
   "googleApiKey" : "",
-  "catlinRsaPemFile" : "",
+  "catlinApiUrl" : "https://inside.catlin.edu/api/lostexhaust/api.py",
+  "catlinApiToken" : "kq7a6x6iX1QzPis62x9akMnWuJxy3ap",
+  "catlinPictureUrl" : "https://inside.catlin.edu/api/lostexhaust/photo.php",
+  "catlinPictureToken" : "a92jHG6FqMXy71ZkJPoqajz915qaUTlsX7z",
+  "catlinRsaPemFile" : "public.pem",
   "validApiKeys" : [
     "default_api_key",
     "secondary_api_key"
-  ]
+  ],
+  "loginSessionDuration" : 4444443200
 }

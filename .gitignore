@@ -9,3 +9,4 @@ conf/
 public.der
 public.pem
 config.json
+conf/config.json
