@@ -1,20 +1,22 @@
-<h1 class="page-title">Household</h1>
-<div class="household-info">
-  <div class="profile-section">
-    <br><b>{{ address }}</b><hr align="left" class="household">
-    <iframe
-      class="google-map-household"
-      height="350"
-      frameborder="0" style="border:0"
-      src="{{ maps_address }}" allowfullscreen>
-      Your browser does not support iframes.
-    </iframe>
-  </div>
-  <div class="profile-section">
-    <b>Inhabitants</b><hr align="left" class="household">
-    <div ng-repeat="inhabitant in inhabitants">
-      <span class="profile-info-field"><i>{{ inhabitant.affiliation }}</i></span>
-      <span class="profile-info-entry"><a class="residents" href="/#/person?p={{ inhabitant.eeid }}">{{ inhabitant.firstname }} {{ inhabitant.lastname }}</a></span><hr align="left" class="household">
+<div ng-if="displayReady">
+  <h1 class="page-title">Household</h1>
+  <div class="household-info">
+    <div class="profile-section">
+      <br><b>{{ address }}</b><hr align="left" class="household">
+      <iframe
+        class="google-map-household"
+        height="350"
+        frameborder="0" style="border:0"
+        src="{{ maps_address }}" allowfullscreen>
+        Your browser does not support iframes.
+      </iframe>
+    </div>
+    <div class="profile-section">
+      <b>Inhabitants</b><hr align="left" class="household">
+      <div ng-repeat="inhabitant in inhabitants">
+        <span class="profile-info-field"><i>{{ inhabitant.affiliation }}</i></span>
+        <span class="profile-info-entry"><a class="residents" href="/#/person?p={{ inhabitant.eeid }}">{{ inhabitant.firstname }} {{ inhabitant.lastname }}</a></span><hr align="left" class="household">
+      </div>
     </div>
   </div>
 </div>

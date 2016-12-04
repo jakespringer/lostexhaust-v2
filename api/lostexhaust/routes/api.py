@@ -7,10 +7,15 @@ import lostexhaust.util as util
 import lostexhaust.data.data_interface as data
 import lostexhaust.actions.authentication as authentication
 from lostexhaust.models.carpool import Carpool
+import logging
 
 ACCESS_CONTROL_ALLOW_ORIGIN = {"Access-Control-Allow-Origin":"*"}
 
-@app.route('/api/person/info/<person_id>.json', methods=['POST'])
+@app.route('/')
+def GET_root():
+    return "It works!"
+
+@app.route('/person/info/<person_id>.json', methods=['POST'])
 def POST_person_info(person_id):
     token = json.loads(request.data)["token"]
     if authentication.check_token_validity(token, request.remote_addr, int(time.time())):
@@ -27,7 +32,7 @@ def POST_person_info(person_id):
         }), status=401, mimetype="application/json", headers=ACCESS_CONTROL_ALLOW_ORIGIN)
 
 
-@app.route('/api/person/everything/<person_id>.json', methods=['POST'])
+@app.route('/person/everything/<person_id>.json', methods=['POST'])
 def POST_person_everything(person_id):
     token = json.loads(request.data)["token"]
     if authentication.check_token_validity(token, request.remote_addr, int(time.time())):
@@ -46,7 +51,7 @@ def POST_person_everything(person_id):
             "message" : "Invalid token"
         }), status=401, mimetype="application/json", headers=ACCESS_CONTROL_ALLOW_ORIGIN)
 
-@app.route('/api/household/info/<household_id>.json', methods=['POST'])
+@app.route('/household/info/<household_id>.json', methods=['POST'])
 def POST_household_info(household_id):
     token = json.loads(request.data)["token"]
     if authentication.check_token_validity(token, request.remote_addr, int(time.time())):
@@ -62,7 +67,7 @@ def POST_household_info(household_id):
             "message" : "Invalid token"
         }), status=401, mimetype="application/json", headers=ACCESS_CONTROL_ALLOW_ORIGIN)
 
-@app.route('/api/household/everything/<household_id>.json', methods=['POST'])
+@app.route('/household/everything/<household_id>.json', methods=['POST'])
 def POST_household_everything(household_id):
     token = json.loads(request.data)["token"]
     if authentication.check_token_validity(token, request.remote_addr, int(time.time())):
@@ -80,7 +85,7 @@ def POST_household_everything(household_id):
             "message" : "Invalid token"
         }), status=401, mimetype="application/json", headers=ACCESS_CONTROL_ALLOW_ORIGIN)
 
-@app.route('/api/carpool/<household_origin_id>.json', methods=['POST'])
+@app.route('/carpool/<household_origin_id>.json', methods=['POST'])
 def POST_carpool(household_origin_id):
     token = json.loads(request.data)["token"]
     if authentication.check_token_validity(token, request.remote_addr, int(time.time())):
@@ -98,7 +103,7 @@ def POST_carpool(household_origin_id):
             "message" : "Invalid token"
         }), status=401, mimetype="application/json", headers=ACCESS_CONTROL_ALLOW_ORIGIN)
 
-@app.route('/api/carpool/near/<household_origin_id>.json', methods=['POST'])
+@app.route('/carpool/near/<household_origin_id>.json', methods=['POST'])
 def POST_carpool_near(household_origin_id):
     token = json.loads(request.data)["token"]
     if authentication.check_token_validity(token, request.remote_addr, int(time.time())):
@@ -116,24 +121,23 @@ def POST_carpool_near(household_origin_id):
             "message" : "Invalid token"
         }), status=401, mimetype="application/json", headers=ACCESS_CONTROL_ALLOW_ORIGIN)
 
-@app.route('/api/user/info/<user_id>.json', methods=['POST'])
+@app.route('/user/info/<user_id>.json', methods=['POST'])
 def POST_user_info(user_id):
     pass
 
-@app.route('/api/person/picture/<user_id>.jpg', methods=['GET'])
+@app.route('/person/picture/<user_id>.jpg', methods=['GET'])
 def GET_person_picture(user_id):
-    token = request.args["token"]
+    token = request.args["token"] if "token" in request.args else ""
     if authentication.check_token_validity(token, request.remote_addr, int(time.time())):
-        return Response(open(os.path.join(config.get('rootDir'), 'res/unknown.jpg')), status=200, mimetype='image/jpeg')
-        # return Response(data.get_profile_picture(authentication.get_person_from_token(token)), status=200, mimetype="image/jpeg")
+        return Response(data.get_profile_picture(user_id), status=200, mimetype="image/jpeg")
     else:
         return Response("", status=401, mimetype="application/json")
 
-@app.route('/api/user/control/<user_id>.json', methods=['POST'])
+@app.route('/user/control/<user_id>.json', methods=['POST'])
 def PUT_user_control(user_id):
     pass
 
-@app.route('/api/auth/check.json', methods=['GET'])
+@app.route('/auth/check.json', methods=['GET'])
 def GET_auth_check():
     token = request.args["token"]
     if authentication.check_token_validity(token, request.remote_addr, int(time.time())):
