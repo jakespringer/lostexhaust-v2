@@ -27,3 +27,7 @@ def m2crypto_load_der(filename):
     data = TEMPLATE % base64.encodestring(raw).rstrip()
     key = M2Crypto.RSA.load_key_string(data)
     return key
+
+def print_file(filename, message):
+    with open(filename, 'a') as myfile:
+        myfile.write(message + '\n') 

@@ -2,7 +2,19 @@
 
 angular.module('lostexhaust')
 
-.controller('CarpoolController', ['$scope', '$rootScope', 'lostexhaustService', function ($scope, $rootScope, lostexhaustService) {
+.filter('shouldShowPicture', function () {
+  return function (input) {
+    var out = []; 
+    for (var i=0; i<input.length; ++i) {
+      if (input[i].affiliation.indexOf('Student') !== -1 || input[i].affiliation.indexOf('Faculty') !== -1) {
+        out.push(input[i]);
+      }
+    }
+    return out;
+  }
+})
+
+.controller('CarpoolController', ['$scope', '$rootScope', 'lostexhaustService', 'shouldShowPictureFilter', function ($scope, $rootScope, lostexhaustService, shouldShowPictureFilter) {
   $scope.doneLoading = false;
   $scope.carpool = null;
   $scope.token = $rootScope.token;
@@ -10,8 +22,9 @@ angular.module('lostexhaust')
     $scope.distanceFormatted = parseFloat(distance).toFixed(1);
     lostexhaustService.getHouseholdEverything(target, function (response) {
       $scope.carpool = response.data;
+      $scope.filteredInhabitants = shouldShowPictureFilter($scope.carpool.inhabitants);
       $scope.doneLoading = true;
-    }, function (error) {
+      $scope.displayReady = true;
     });
   }
 }])

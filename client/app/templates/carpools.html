@@ -1,10 +1,12 @@
-<h1 class="page-title">Households Near Me</h1>
-<div class="near-content"><span class="household-select">Current household:
-  <select ng-change="switchPrimaryHousehold(selectedHousehold)" ng-model="selectedHousehold">
-    <option ng-addr-selected="{{ household.household_id != currentlySelectedHousehold.household_id || undefined }}" ng-repeat="household in user.households" value="{{ household.id }}">{{ household.full_address }}</option>
-  </select></span><hr class="near">
-  <span ng-repeat="carpool in sorted">
-    <carpool origin="{{ carpool.origin_household_id }}" target="{{ carpool.target_household_id }}" distance="{{ carpool.distance }}"></carpool><br><hr class="near">
-  </span>
-  <center><a class="residents" ng-click="refreshCarpools(numRequesting+10)" href="javascript:;">See more</a><span ng-if="numRequesting > 10"> | <a class="residents" ng-click="refreshCarpools(numRequesting-10)" href="javascript:;">See less</a></span></center>
+<div ng-if="displayReady">
+  <h1 class="page-title">Households Near Me</h1>
+  <div class="near-content"><span class="household-select">Current household:
+    <select ng-change="switchPrimaryHousehold(selectedHousehold)" ng-model="selectedHousehold">
+      <option ng-addr-selected="{{ household.household_id != currentlySelectedHousehold.household_id || undefined }}" ng-repeat="household in user.households" value="{{ household.id }}">{{ household.full_address }}</option>
+    </select></span><hr class="near">
+    <span ng-repeat="carpool in sorted">
+      <carpool origin="{{ carpool.origin_household_id }}" target="{{ carpool.target_household_id }}" distance="{{ carpool.distance }}"></carpool><br><hr class="near">
+    </span>
+    <center><a class="residents" ng-click="refreshCarpoolsAndScroll(numRequesting+10)" href="javascript:;">See more</a><span ng-if="numRequesting > 10"> | <a class="residents" ng-click="refreshCarpools(numRequesting-10)" href="javascript:;">See less</a></span></center>
+  </div>
 </div>

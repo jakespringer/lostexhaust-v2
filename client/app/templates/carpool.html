@@ -2,17 +2,16 @@
   <span ng-if="doneLoading">
     <span class="address"><a class="household" href="/#/household?h={{ carpool.household_id }}">{{ carpool.full_address }}</a> (<b>{{ distanceFormatted }} mi</b>)</span><br>
     <span class="resident-pictures" style="float: left !important;">
-      <span ng-repeat="resident in carpool.inhabitants">
-        <img width="80" height="100" ng-src="{{ 'http://localhost:5000/api/person/picture/'+resident.eeid+'.jpg?token='+token}}">
+      <span ng-repeat="resident in filteredInhabitants">
+        <a href="/#/person?p={{ resident.eeid }}"><img width="80" height="100" ng-src="{{ 'http://catlin.lostexhaust.org/api/person/picture/'+resident.eeid+'.jpg?token='+token}}"></a>
       </span>
-      <!-- <span ng-class="{ 'carpool.inhabitants' : 'height: 100px;' }"></span> -->
     </span>
     <div class="residents" style="float: left;">
       <h5 class="residents">Residents</h5>
       <span ng-repeat="resident in carpool.inhabitants"><a class="residents" href="/#/person?p={{ resident.eeid }}">{{ resident.firstname }} {{ resident.lastname }}</a> {{ resident.gradelevel ? '(Grade ' + resident.gradelevel + ')' : '' }}<br></span>
     </div>
   </span>
-  <span ng-if="!doneLoading">
-    <span style="height: 1000px; width: 100px;">
-  </span>
+  <div ng-if="!doneLoading">
+    <span style="display: inline-block; height: 120px; width: 180px;">
+  </div>
 </div>

@@ -3,7 +3,7 @@
 angular.module('lostexhaust')
 
 .service('lostexhaustService', ['$http', function ($http) {
-  var ROOT_URL = 'http://localhost:5000';
+  var ROOT_URL = 'http://catlin.lostexhaust.org';
 
   return {
     token: null,

@@ -18,11 +18,14 @@
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
+
   <div class="portal" ng-controller="SidebarController"><ul class="portal">
-    <li class="ph"><span class="ph">Welcome, {{ user.firstname }}.<br><a class="ph" href="/logout">Sign out</a></span></li>
-    <li class="pe"><a class="pe" href="/#/carpools"><span ng-class="{peselected: activated.near}" class="pe">Households near me</span></a></li>
-    <li class="pe"><a class="pe" href="/#/home"><span ng-class="{peselected: activated.home}" class="pe">My household</span></a></li>
-    <li class="pe"><a class="pe" href="/#/user"><span ng-class="{peselected: activated.profile}" class="pe">My profile</span></a></li>
+    <div ng-if="displayReady">
+      <li class="ph"><span class="ph">Welcome, {{ user.firstname }}.<br><a class="ph" href="javascript:;" ng-click="logout()">Sign out</a></span></li>
+      <li class="pe"><a class="pe" href="/#/carpools"><span ng-class="{peselected: activated.near}" class="pe">Households near me</span></a></li>
+      <li class="pe"><a class="pe" href="/#/home"><span ng-class="{peselected: activated.home}" class="pe">My household</span></a></li>
+      <li class="pe"><a class="pe" href="/#/user"><span ng-class="{peselected: activated.profile}" class="pe">My profile</span></a></li>
+     </div>
   </ul></div>
   <div class="content" ng-view></div>
 
@@ -38,13 +41,15 @@
   <script src="views/household_view.js"></script>
   <script src="views/person_view.js"></script>
   <script src="views/user_view.js"></script>
+  <script src="views/login_view.js"></script>
   <script src="controllers/admin_panel.js"></script>
   <script src="controllers/carpools.js"></script>
   <script src="controllers/home.js"></script>
   <script src="controllers/household.js"></script>
   <script src="controllers/person.js"></script>
-  <script src="controllers/sidebar.js"></script>
   <script src="controllers/user.js"></script>
+  <script src="controllers/login.js"></script>
+  <script src="controllers/sidebar.js"></script>
   <script src="directives/carpool.js"></script>
 </body>
 </html>

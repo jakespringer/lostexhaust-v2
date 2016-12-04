@@ -1,8 +1,8 @@
 {
   "sqlHostname" : "localhost",
   "sqlPort" : "3306",
-  "sqlUsername" : "root",
-  "sqlPassword" : "",
+  "sqlUsername" : "lostexhaust",
+  "sqlPassword" : "k7Dqu2zYV91aJhwlAB8fQ",
   "sqlLookupTable" : "lostexhaust.users",
   "sqlUserTable" : "lostexhaust.users",
   "sqlHouseholdsTable" : "lostexhaust.households",
