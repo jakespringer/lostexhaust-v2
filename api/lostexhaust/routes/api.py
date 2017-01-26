@@ -9,11 +9,9 @@ import lostexhaust.actions.authentication as authentication
 from lostexhaust.models.carpool import Carpool
 import logging
 
-ACCESS_CONTROL_ALLOW_ORIGIN = {"Access-Control-Allow-Origin":"*"}
-
-@app.route('/')
-def GET_root():
-    return "It works!"
+# Switch these for testing, do not include Access-Control-Allow-Origin
+# in production!
+ACCESS_CONTROL_ALLOW_ORIGIN = {} # {"Access-Control-Allow-Origin":"*"}
 
 @app.route('/person/info/<person_id>.json', methods=['POST'])
 def POST_person_info(person_id):

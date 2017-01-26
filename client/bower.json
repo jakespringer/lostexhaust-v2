@@ -3,7 +3,7 @@
   "description": "A carpool application, done right",
   "version": "2.0.1",
   "homepage": "https://www.lostexhaust.org",
-  "license": "MIT",
+  "license": "LGPL-3",
   "private": true,
   "dependencies": {
     "angular": "~1.5.0",
